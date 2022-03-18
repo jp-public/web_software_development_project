@@ -1,0 +1,22 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1><%= it.question.title %>: <%= it.question.question_text %> </h1>
+
+<h2>Answer options:</h2>
+
+<% if (it.options && it.options.length > 0) { %>
+
+<ul>
+<% it.options.forEach(option => { %>
+  <li><%= option.option_text %></li>
+  <form method="POST" action="/quiz/<%= it.question.id %>/options/<%= option.id %>">
+    <input type="submit" value="Choose" />
+  </form>
+<% }); %>
+</ul>
+
+<% } else { %>
+
+<p>None available.</p>
+
+<% } %>

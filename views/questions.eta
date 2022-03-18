@@ -1,0 +1,47 @@
+<% layout('./layouts/layout.eta') %>
+
+<h1>Quiz app!</h1>
+
+<a href="/quiz">Take a quiz (answer random question)</a>
+
+<h2>Current questions made by you:</h2>
+
+<% if (it.questions && it.questions.length > 0) { %>
+
+<ul>
+<% it.questions.forEach(question => { %>
+  <li>
+    <a href="/questions/<%= question.id %>"><%= question.title %></a>
+  </li>
+<% }); %>
+</ul>
+
+<% } else { %>
+
+<p>None available.</p>
+
+<% } %>
+
+<h2>Add a new question.</h2>
+
+<% if (it.errors) { %>
+<ul>
+    <% Object.keys(it.errors).forEach((attribute) => { %>
+        <% Object.values(it.errors[attribute]).forEach((err) => { %>
+            <li><%= err %></li>
+        <% }); %>
+    <% }); %>
+</ul>
+<% } %>
+
+<form method="POST" action="/questions">
+Title:<br/>
+<input type="text" name="title" value="<%= it.title %>" /><br/>
+Question:<br/>
+<textarea name="question_text">
+<% if (it.question_text){ %>
+<%= it.question_text %>
+<% } %>
+</textarea><br/>
+<input type="submit" value="Create"/>
+</form>

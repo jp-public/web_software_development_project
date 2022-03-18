@@ -1,0 +1,18 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Statistics!</h1>
+
+<h2>You have answered <%= it.numberOfAnswers.count %> questions.</h2>
+
+<h2>You have answered  <%= it.numberOfCorrectAnswers.count %> questions correctly.</h2>
+
+<h2>You have answered <%= it.numberOfOwnAnswers %> questions made by you.</h2>
+
+<h2>User with most answered questions</h2>
+
+<table>
+<tr><th>User</th><th>Answered questions</th></tr>
+<% it.mostAnsweredQuestions.forEach(stat => { %>
+<tr><td><%= stat.email %></td><td><%= stat.count %></td></tr>
+<% }) %>
+</table>
