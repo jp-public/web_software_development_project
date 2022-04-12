@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./:/app
+    ports:
+      - 7777:7777
+    depends_on:
+      - database
+    env_file:
+      - database.env
+
+  database:
+    container_name: "postgres-database"
+    image: "postgres:13.4"
+    restart: unless-stopped
+    env_file:
+        - database.env
+
+  flyway:
+    image: flyway/flyway:7.3.0-alpine
+    env_file:
+      - database.env
+    depends_on:
+      - database
+    volumes:
+      - .:/flyway/sql
+    command: -connectRetries=60 -baselineOnMigrate=true migrate
