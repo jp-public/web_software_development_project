@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: Setup repo
       uses: actions/checkout@v2
-    - name: Deploy heroku
+    - name: Deploy heroku.
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
